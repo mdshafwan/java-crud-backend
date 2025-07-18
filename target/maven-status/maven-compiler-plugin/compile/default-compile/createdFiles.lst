@@ -1,5 +1,7 @@
 com\example\metalpurity\config\WebConfig.class
 com\example\metalpurity\model\MetalRate.class
+com\example\metalpurity\repository\UserRepository.class
+com\example\metalpurity\service\UserService.class
 com\example\metalpurity\config\WebConfig$1.class
 com\example\metalpurity\repository\MetalRateRepository.class
 com\example\metalpurity\controller\MetalRateController.class
@@ -7,9 +9,11 @@ com\example\metalpurity\service\PurityService.class
 com\example\metalpurity\service\MetalService.class
 com\example\metalpurity\controller\PurityController.class
 com\example\metalpurity\repository\PurityRepository.class
+com\example\metalpurity\controller\UserController.class
 com\example\metalpurity\model\Metal.class
 com\example\metalpurity\model\Purity.class
 com\example\metalpurity\repository\MetalRepository.class
 com\example\metalpurity\MetalPurityBackendApplication.class
 com\example\metalpurity\controller\MetalController.class
+com\example\metalpurity\model\User.class
 com\example\metalpurity\service\MetalRateService.class
