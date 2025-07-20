@@ -10,7 +10,7 @@
 # Mobile Tools for Java (J2ME)
 .mtj.tmp/
 
-# Ignore general package files, except the final jar you want
+# Ignore general package files
 *.war
 *.nar
 *.ear
@@ -18,16 +18,17 @@
 *.tar.gz
 *.rar
 
-# Ignore all JARs except your final JAR
+# Ignore all JARs by default
 *.jar
+
+# Allow this specific JAR even if .jar is ignored
 !target/metal-purity-backend-0.0.1-SNAPSHOT.jar
 
-# Maven build folders
-/target/
-/target/**
+# Ignore everything in target folder
+/target/*
 
-# But allow final jar inside target
-!target/metal-purity-backend-0.0.1-SNAPSHOT.jar
+# But allow specific JAR again (override)
+/target/!metal-purity-backend-0.0.1-SNAPSHOT.jar
 
 # JVM crash logs
 hs_err_pid*
