@@ -3,6 +3,8 @@ package com.example.metalpurity.model;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.time.LocalDateTime;
+
 @Document(collection = "User")
 public class User {
 
@@ -11,12 +13,15 @@ public class User {
     private String name;
     private String email;
 
+    private LocalDateTime createdAt;   // 📆 For date-based filters
+
     // Constructors
     public User() {}
 
     public User(String name, String email) {
         this.name = name;
         this.email = email;
+        this.createdAt = LocalDateTime.now(); // Optional default
     }
 
     // Getters and setters
@@ -42,5 +47,13 @@ public class User {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(LocalDateTime createdAt) {
+        this.createdAt = createdAt;
     }
 }

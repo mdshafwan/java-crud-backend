@@ -1,5 +1,8 @@
 package com.example.metalpurity.model;
 
+import java.time.LocalDateTime;
+import java.time.LocalDateTime;
+
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -10,13 +13,14 @@ public class Purity {
     private String id;
     private String name;
     private double value;
-
+    private LocalDateTime createdAt;
     // Constructors
     public Purity() {}
 
     public Purity(String name, double value) {
         this.name = name;
         this.value = value;
+        this.createdAt = LocalDateTime.now();
     }
 
     // Getters and setters
@@ -28,4 +32,11 @@ public class Purity {
 
     public double getValue() { return value; }
     public void setValue(double value) { this.value = value; }
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(LocalDateTime createdAt) {
+        this.createdAt = createdAt;
+    }
 }

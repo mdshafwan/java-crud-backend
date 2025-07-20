@@ -5,12 +5,15 @@ import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
+import java.time.LocalDateTime;
 
 @Repository
 public interface UserRepository extends MongoRepository<User, String> {
 
-    // Custom query for paginated search by name or email
     Page<User> findByNameContainingIgnoreCaseOrEmailContainingIgnoreCase(
         String name, String email, Pageable pageable
     );
+
+    // ✅ Newly added date range method
+    Page<User> findByCreatedAtBetween(LocalDateTime from, LocalDateTime to, Pageable pageable);
 }

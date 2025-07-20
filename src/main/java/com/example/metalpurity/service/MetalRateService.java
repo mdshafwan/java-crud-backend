@@ -5,8 +5,9 @@ import com.example.metalpurity.repository.MetalRateRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
-import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class MetalRateService {
@@ -18,7 +19,7 @@ public class MetalRateService {
         return repository.findAll();
     }
 
-    public Optional<MetalRate> getById(String id) {
+    public java.util.Optional<MetalRate> getById(String id) {
         return repository.findById(id);
     }
 
@@ -33,5 +34,31 @@ public class MetalRateService {
 
     public void delete(String id) {
         repository.deleteById(id);
+    }
+
+    // ✅ NEW: Filter rates by date
+    public List<MetalRate> filterByDateRange(String fromDateStr, String toDateStr) {
+        List<MetalRate> allRates = repository.findAll();
+
+        return allRates.stream()
+            .filter(rate -> {
+                if (rate.getEffectiveDate() == null) return false;
+
+                LocalDate rateDate;
+                try {
+                    rateDate = LocalDate.parse(rate.getEffectiveDate());
+                } catch (Exception e) {
+                    return false;
+                }
+
+                LocalDate from = (fromDateStr != null && !fromDateStr.isEmpty()) ? LocalDate.parse(fromDateStr) : null;
+                LocalDate to   = (toDateStr != null && !toDateStr.isEmpty())   ? LocalDate.parse(toDateStr)   : null;
+
+                boolean afterFrom = (from == null || !rateDate.isBefore(from));
+                boolean beforeTo  = (to == null || !rateDate.isAfter(to));
+
+                return afterFrom && beforeTo;
+            })
+            .collect(Collectors.toList());
     }
 }
