@@ -1,8 +1,10 @@
 package com.example.metalpurity.controller;
 
+import com.example.metalpurity.common.MutationHistory;
 import com.example.metalpurity.model.Metal;
-import com.example.metalpurity.repository.MetalRepository;
+import com.example.metalpurity.service.MetalService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
@@ -14,44 +16,45 @@ import java.util.List;
 public class MetalController {
 
     @Autowired
-    private MetalRepository repo;
+    private MetalService service;
 
     @GetMapping
     public List<Metal> getAll() {
-        return repo.findAll();
+        return service.getAll();
     }
 
     @GetMapping("/{id}")
     public Metal getById(@PathVariable String id) {
-        return repo.findById(id).orElse(null);
+        return service.getById(id).orElse(null);
     }
 
     @PostMapping
     public Metal create(@RequestBody Metal metal) {
-        metal.setCreatedAt(LocalDateTime.now()); // Set createdAt timestamp
-        return repo.save(metal);
+        metal.setCreatedAt(LocalDateTime.now());
+        return service.create(metal, "system");
     }
 
     @PutMapping("/{id}")
     public Metal update(@PathVariable String id, @RequestBody Metal metal) {
-        return repo.findById(id).map(existing -> {
-            existing.setName(metal.getName());
-            existing.setsymbol(metal.getsymbol());
-
-            if (existing.getCreatedAt() == null) {
-                existing.setCreatedAt(LocalDateTime.now());
-            }
-
-            return repo.save(existing);
-        }).orElse(null);
+        return service.update(id, metal, "system");
     }
 
     @DeleteMapping("/{id}")
     public void delete(@PathVariable String id) {
-        repo.deleteById(id);
+        service.delete(id, "system");
     }
 
-    // ✅ Filtering by date range
+    @PostMapping("/{id}/undo")
+    public ResponseEntity<Metal> undo(@PathVariable String id) {
+        Metal restored = service.undo(id);
+        return ResponseEntity.ok(restored);
+    }
+
+    @GetMapping("/{id}/history")
+    public List<MutationHistory> getHistory(@PathVariable String id) {
+        return service.getHistory(id);
+    }
+
     @GetMapping("/filter")
     public List<Metal> filterByDateRange(
         @RequestParam(required = false) String from,
@@ -60,14 +63,6 @@ public class MetalController {
         LocalDateTime fromDate = (from != null && !from.isEmpty()) ? LocalDateTime.parse(from + "T00:00:00") : null;
         LocalDateTime toDate = (to != null && !to.isEmpty()) ? LocalDateTime.parse(to + "T23:59:59") : null;
 
-        if (fromDate != null && toDate != null) {
-            return repo.findByCreatedAtBetween(fromDate, toDate);
-        } else if (fromDate != null) {
-            return repo.findByCreatedAtAfter(fromDate);
-        } else if (toDate != null) {
-            return repo.findByCreatedAtBefore(toDate);
-        } else {
-            return getAll();
-        }
+        return service.getFilteredMetals(fromDate, toDate);
     }
 }

@@ -1,15 +1,17 @@
 package com.example.metalpurity.controller;
 
+import com.example.metalpurity.common.MutationHistory;
 import com.example.metalpurity.model.Purity;
 import com.example.metalpurity.service.PurityService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/purity")
+@RequestMapping("/api/purities")
 @CrossOrigin(origins = "*") // Lock to frontend origin in production
 public class PurityController {
 
@@ -27,20 +29,28 @@ public class PurityController {
     }
 
     @PostMapping
-    public Purity create(@RequestBody Purity purity) {
-        purity.setCreatedAt(LocalDateTime.now()); // 🕒 Add timestamp on creation
-        return service.create(purity);
-    }
+   public Purity create(@RequestBody Purity purity) {
+    return service.create(purity, "system");
+}
+
+
 
     @PutMapping("/{id}")
     public Purity update(@PathVariable String id, @RequestBody Purity purity) {
-        return service.update(id, purity);
-    }
+    return service.update(id, purity, "system");
+}
 
     @DeleteMapping("/{id}")
     public void delete(@PathVariable String id) {
-        service.delete(id);
-    }
+    service.delete(id, "system");
+}
+    @PostMapping("/{id}/undo")
+public ResponseEntity<Purity> undo(@PathVariable String id) {
+    Purity restored = service.undo(id);
+    return ResponseEntity.ok(restored);
+}
+
+    
 
     // ✅ Filter by date range
     @GetMapping("/filter")

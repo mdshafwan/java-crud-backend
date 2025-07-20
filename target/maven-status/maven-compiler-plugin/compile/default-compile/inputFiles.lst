@@ -1,8 +1,10 @@
 D:\javacode\java-crud-backend\src\main\java\com\example\metalpurity\controller\UserController.java
+D:\javacode\java-crud-backend\src\main\java\com\example\metalpurity\config\JacksonConfig.java
 D:\javacode\java-crud-backend\src\main\java\com\example\metalpurity\repository\MetalRateRepository.java
 D:\javacode\java-crud-backend\src\main\java\com\example\metalpurity\repository\MetalRepository.java
 D:\javacode\java-crud-backend\src\main\java\com\example\metalpurity\controller\PurityController.java
 D:\javacode\java-crud-backend\src\main\java\com\example\metalpurity\model\User.java
+D:\javacode\java-crud-backend\src\main\java\com\example\metalpurity\util\MutationTracker.java
 D:\javacode\java-crud-backend\src\main\java\com\example\metalpurity\service\UserService.java
 D:\javacode\java-crud-backend\src\main\java\com\example\metalpurity\config\WebConfig.java
 D:\javacode\java-crud-backend\src\main\java\com\example\metalpurity\controller\MetalRateController.java
@@ -15,4 +17,8 @@ D:\javacode\java-crud-backend\src\main\java\com\example\metalpurity\service\Meta
 D:\javacode\java-crud-backend\src\main\java\com\example\metalpurity\model\Purity.java
 D:\javacode\java-crud-backend\src\main\java\com\example\metalpurity\service\PurityService.java
 D:\javacode\java-crud-backend\src\main\java\com\example\metalpurity\repository\PurityRepository.java
+D:\javacode\java-crud-backend\src\main\java\com\example\metalpurity\common\MutationHistory.java
+D:\javacode\java-crud-backend\src\main\java\com\example\metalpurity\common\HasMutationHistory.java
+D:\javacode\java-crud-backend\src\main\java\com\example\metalpurity\service\BaseMutationService.java
 D:\javacode\java-crud-backend\src\main\java\com\example\metalpurity\controller\MetalController.java
+D:\javacode\java-crud-backend\src\main\java\com\example\metalpurity\service\BulkActionService.java

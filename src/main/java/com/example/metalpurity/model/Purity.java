@@ -1,19 +1,28 @@
 package com.example.metalpurity.model;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.time.LocalDateTime;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import com.example.metalpurity.common.HasMutationHistory;
+import com.example.metalpurity.common.MutationHistory;
+
 @Document(collection = "Purity")
-public class Purity {
+public class Purity implements HasMutationHistory
+{
 
     @Id
     private String id;
     private String name;
     private double value;
     private LocalDateTime createdAt;
+    private List<MutationHistory> mutationHistory;
+
+
+    
     // Constructors
     public Purity() {}
 
@@ -39,4 +48,17 @@ public class Purity {
     public void setCreatedAt(LocalDateTime createdAt) {
         this.createdAt = createdAt;
     }
+   
+
+    @Override
+    public List<MutationHistory> getMutationHistory() {
+        return mutationHistory;
+    }
+
+    @Override
+    public void setMutationHistory(List<MutationHistory> history) {
+        this.mutationHistory = history;
+    }
 }
+
+    
