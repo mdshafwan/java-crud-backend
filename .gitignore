@@ -19,16 +19,12 @@
 *.rar
 
 # Ignore all JARs by default
-*.jar
+
 
 # Allow this specific JAR even if .jar is ignored
 !target/metal-purity-backend-0.0.1-SNAPSHOT.jar
 
-# Ignore everything in target folder
-/target/*
 
-# But allow specific JAR again (override)
-/target/!metal-purity-backend-0.0.1-SNAPSHOT.jar
 
 # JVM crash logs
 hs_err_pid*
