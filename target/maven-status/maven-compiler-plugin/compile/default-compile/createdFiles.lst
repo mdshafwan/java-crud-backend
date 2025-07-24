@@ -16,11 +16,14 @@ com\example\metalpurity\service\BulkActionService.class
 com\example\metalpurity\model\User.class
 com\example\metalpurity\common\MutationHistory.class
 com\example\metalpurity\config\WebConfig$1.class
+com\example\metalpurity\dto\FilterCriteriaDTO.class
 com\example\metalpurity\repository\MetalRateRepository.class
+com\example\metalpurity\repository\custom\MetalRepositoryCustom.class
 com\example\metalpurity\util\MutationTracker.class
 com\example\metalpurity\controller\PurityController.class
 com\example\metalpurity\repository\PurityRepository.class
 com\example\metalpurity\controller\UserController.class
+com\example\metalpurity\repository\custom\MetalRepositoryImpl.class
 com\example\metalpurity\model\Purity.class
 com\example\metalpurity\repository\MetalRepository.class
 com\example\metalpurity\service\BaseMutationService$1.class

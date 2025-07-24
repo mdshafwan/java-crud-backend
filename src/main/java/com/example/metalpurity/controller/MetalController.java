@@ -1,12 +1,19 @@
 package com.example.metalpurity.controller;
 
 import com.example.metalpurity.common.MutationHistory;
+import com.example.metalpurity.dto.FilterCriteriaDTO;
 import com.example.metalpurity.model.Metal;
 import com.example.metalpurity.service.MetalService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.ByteArrayResource;
+import org.springframework.core.io.Resource;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.ByteArrayOutputStream;
+import java.io.PrintWriter;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -55,14 +62,37 @@ public class MetalController {
         return service.getHistory(id);
     }
 
-    @GetMapping("/filter")
-    public List<Metal> filterByDateRange(
-        @RequestParam(required = false) String from,
-        @RequestParam(required = false) String to
-    ) {
-        LocalDateTime fromDate = (from != null && !from.isEmpty()) ? LocalDateTime.parse(from + "T00:00:00") : null;
-        LocalDateTime toDate = (to != null && !to.isEmpty()) ? LocalDateTime.parse(to + "T23:59:59") : null;
+    @PostMapping("/export")
+    public ResponseEntity<Resource> exportMetalsToCSV(@RequestBody FilterCriteriaDTO criteria) {
+        System.out.println("🛠️ Received FilterCriteriaDTO:");
+        System.out.println("searchText=" + criteria.getSearchText());
+        System.out.println("fromDate=" + criteria.getFromDate());
+        System.out.println("toDate=" + criteria.getToDate());
+        System.out.println("sortField=" + criteria.getSortField());
+        System.out.println("sortDirection=" + criteria.getSortDirection());
 
-        return service.getFilteredMetals(fromDate, toDate);
+        List<Metal> metals = service.getFilteredMetals(criteria);
+        System.out.println("Exporting " + metals.size() + " metals:");
+        metals.forEach(m -> System.out.printf("Export: %s, %s, %s%n",
+                m.getName(), m.getSymbol(), m.getCreatedAt()));
+
+        ByteArrayOutputStream out = new ByteArrayOutputStream();
+        try (PrintWriter writer = new PrintWriter(out)) {
+            writer.println("Name,Symbol,CreatedDate");
+
+            for (Metal metal : metals) {
+                writer.printf("%s,%s,%s%n",
+                    metal.getName(),
+                    metal.getSymbol(),
+                    metal.getCreatedAt() != null ? metal.getCreatedAt().toString() : ""
+                );
+            }
+        }
+
+        ByteArrayResource resource = new ByteArrayResource(out.toByteArray());
+        return ResponseEntity.ok()
+            .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=metals.csv")
+            .contentType(MediaType.parseMediaType("text/csv"))
+            .body(resource);
     }
 }
