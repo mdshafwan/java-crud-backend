@@ -1,9 +1,11 @@
+com\example\metalpurity\config\WebConfig.class
 com\example\metalpurity\model\MetalRate.class
 com\example\metalpurity\repository\UserRepository.class
 com\example\metalpurity\service\PurityService$1.class
 com\example\metalpurity\service\UserService.class
 com\example\metalpurity\service\MetalService$1.class
 com\example\metalpurity\controller\MetalRateController.class
+com\example\metalpurity\config\CorsConfig.class
 com\example\metalpurity\service\PurityService.class
 com\example\metalpurity\service\BaseMutationService.class
 com\example\metalpurity\service\MetalService.class
@@ -12,6 +14,7 @@ com\example\metalpurity\config\JacksonConfig.class
 com\example\metalpurity\model\Metal.class
 com\example\metalpurity\controller\MetalController.class
 com\example\metalpurity\service\BulkActionService.class
+com\example\metalpurity\config\CorsConfig$1.class
 com\example\metalpurity\model\User.class
 com\example\metalpurity\common\MutationHistory.class
 com\example\metalpurity\dto\FilterCriteriaDTO.class
