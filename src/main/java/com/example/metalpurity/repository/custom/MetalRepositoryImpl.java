@@ -10,7 +10,6 @@ import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Repository;
 import org.springframework.util.StringUtils;
 
-import java.time.LocalTime;
 import java.util.List;
 
 @Repository
@@ -19,7 +18,7 @@ public class MetalRepositoryImpl implements MetalRepositoryCustom {
     @Autowired
     private MongoTemplate mongoTemplate;
 
-    @Override
+  @Override
 public List<Metal> findWithFilters(FilterCriteriaDTO criteria) {
     Query query = new Query();
     boolean hasFilters = false;
@@ -38,8 +37,8 @@ public List<Metal> findWithFilters(FilterCriteriaDTO criteria) {
     }
     if (criteria.getFromDate() != null && criteria.getToDate() != null) {
         query.addCriteria(Criteria.where("createdAt")
-            .gte(criteria.getFromDate().atStartOfDay())
-            .lte(criteria.getToDate().atTime(LocalTime.MAX)));
+            .gte(criteria.getFromDate())
+            .lte(criteria.getToDate()));
         hasFilters = true;
     }
 

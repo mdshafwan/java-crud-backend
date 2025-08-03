@@ -1,4 +1,3 @@
-com\example\metalpurity\config\WebConfig.class
 com\example\metalpurity\model\MetalRate.class
 com\example\metalpurity\repository\UserRepository.class
 com\example\metalpurity\service\PurityService$1.class

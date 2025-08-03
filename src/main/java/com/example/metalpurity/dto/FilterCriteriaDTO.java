@@ -1,36 +1,39 @@
 package com.example.metalpurity.dto;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import io.swagger.v3.oas.annotations.media.Schema;
-import java.time.LocalDate;
 
-/**
- * Combined filter criteria for filtering metals in search, export, and dashboards.
- */
+import java.time.LocalDateTime;
+
+@JsonInclude(JsonInclude.Include.NON_NULL)
 @Schema(description = "Combined filter criteria for filtering metals")
 public class FilterCriteriaDTO {
 
-    @Schema(description = "Text search for metal name")
+    @Schema(description = "Text search for metal name", example = "Gold")
     private String searchText;
 
-    @Schema(description = "Filter by metal type")
+    @Schema(description = "Filter by metal type", example = "Precious")
     private String metalType;
 
-    @Schema(description = "Filter by purity level")
+    @Schema(description = "Filter by purity level", example = "99.9%")
     private String purityLevel;
 
-    @Schema(description = "Start date of created range")
-    private LocalDate fromDate;
+    @Schema(description = "Start date-time of created range", example = "2025-08-01T00:00:00")
+    @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
+    private LocalDateTime fromDate;
 
-    @Schema(description = "End date of created range")
-    private LocalDate toDate;
+    @Schema(description = "End date-time of created range", example = "2025-08-03T23:59:59")
+    @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
+    private LocalDateTime toDate;
 
-    @Schema(description = "Column name to sort by")
+    @Schema(description = "Column name to sort by", example = "createdAt")
     private String sortField;
 
-    @Schema(description = "Sort direction: asc or desc")
+    @Schema(description = "Sort direction: asc or desc", example = "asc")
     private String sortDirection;
 
-    // 🔧 Getters and Setters
+    // Getters and Setters
 
     public String getSearchText() {
         return searchText;
@@ -56,19 +59,19 @@ public class FilterCriteriaDTO {
         this.purityLevel = purityLevel;
     }
 
-    public LocalDate getFromDate() {
+    public LocalDateTime getFromDate() {
         return fromDate;
     }
 
-    public void setFromDate(LocalDate fromDate) {
+    public void setFromDate(LocalDateTime fromDate) {
         this.fromDate = fromDate;
     }
 
-    public LocalDate getToDate() {
+    public LocalDateTime getToDate() {
         return toDate;
     }
 
-    public void setToDate(LocalDate toDate) {
+    public void setToDate(LocalDateTime toDate) {
         this.toDate = toDate;
     }
 
@@ -86,29 +89,7 @@ public class FilterCriteriaDTO {
 
     public void setSortDirection(String sortDirection) {
         this.sortDirection = sortDirection;
-    }
-
-    /**
-     * Helper to check whether any filter is applied.
-     */
-    public boolean hasAnyFilter() {
-        return (searchText != null && !searchText.isEmpty()) ||
-               (metalType != null) ||
-               (purityLevel != null) ||
-               (fromDate != null) ||
-               (toDate != null);
-    }
-
-    @Override
-    public String toString() {
-        return "FilterCriteriaDTO{" +
-            "searchText='" + searchText + '\'' +
-            ", metalType='" + metalType + '\'' +
-            ", purityLevel='" + purityLevel + '\'' +
-            ", fromDate=" + fromDate +
-            ", toDate=" + toDate +
-            ", sortField='" + sortField + '\'' +
-            ", sortDirection='" + sortDirection + '\'' +
-            '}';
+    
+        
     }
 }
