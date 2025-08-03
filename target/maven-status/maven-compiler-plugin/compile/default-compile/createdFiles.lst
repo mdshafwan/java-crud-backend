@@ -15,7 +15,6 @@ com\example\metalpurity\controller\MetalController.class
 com\example\metalpurity\service\BulkActionService.class
 com\example\metalpurity\model\User.class
 com\example\metalpurity\common\MutationHistory.class
-com\example\metalpurity\config\WebConfig$1.class
 com\example\metalpurity\dto\FilterCriteriaDTO.class
 com\example\metalpurity\repository\MetalRateRepository.class
 com\example\metalpurity\repository\custom\MetalRepositoryCustom.class
